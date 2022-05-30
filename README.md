@@ -3,6 +3,7 @@ A [GitHub Action](https://github.com/marketplace/actions/docker-compose-remote-d
 
 The Action is adapted from work by [wshihadeh](https://github.com/marketplace/actions/docker-deployment)
 
+Forked from [TapTap21/docker-remote-deployment-action](https://github.com/TapTap21/docker-remote-deployment-action)
 
 ## Example
 
@@ -10,9 +11,10 @@ Below is an example of how the action can be used
 
 ```yaml
 - name: Start Deployment
-  uses: TapTap21/docker-remote-deployment-action@v1.0
+  uses: centrilliontech/docker-remote-deployment-action@v1.2
   with:
     remote_docker_host: ec2-user@ec2-34-246-134-80.eu-west-1.compute.amazonaws.com
+    remote_docker_context: staging
     ssh_private_key: ${{ secrets.DOCKER_SSH_PRIVATE_KEY }}
     ssh_public_key: ${{ secrets.DOCKER_SSH_PUBLIC_KEY }}
     stack_file_name: docker-compose.yml
@@ -36,6 +38,10 @@ Docker-compose runtime arguments and options. Below is a common usage example:
 ### `remote_docker_host`
 
 Specify Remote Docker host. The input value must be in the following format (user@host)
+
+### `remote_docker_context`
+
+Specify Remote Docker context. Default is staging.
 
 ### `ssh_public_key`
 

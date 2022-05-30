@@ -13,6 +13,10 @@ if [ -z "$INPUT_REMOTE_DOCKER_HOST" ]; then
     exit 1
 fi
 
+if [ -z "$INPUT_REMOTE_DOCKER_CONTEXT" ]; then
+    INPUT_REMOTE_DOCKER_CONTEXT=staging
+fi
+
 if [ -z "$INPUT_SSH_PUBLIC_KEY" ]; then
     echo "Input ssh_public_key is required!"
     exit 1
@@ -63,8 +67,8 @@ ssh-keyscan -p $INPUT_SSH_PORT "$SSH_HOST" >> ~/.ssh/known_hosts
 ssh-keyscan -p $INPUT_SSH_PORT "$SSH_HOST" >> /etc/ssh/ssh_known_hosts
 # set context
 echo "Create docker context"
-docker context create staging --docker "host=ssh://$INPUT_REMOTE_DOCKER_HOST:$INPUT_SSH_PORT"
-docker context use staging
+docker context create $INPUT_REMOTE_DOCKER_CONTEXT --docker "host=ssh://$INPUT_REMOTE_DOCKER_HOST:$INPUT_SSH_PORT"
+docker context use $INPUT_REMOTE_DOCKER_CONTEXT
 
 
 if  [ -n "$INPUT_DOCKER_LOGIN_PASSWORD" ] || [ -n "$INPUT_DOCKER_LOGIN_USER" ] || [ -n "$INPUT_DOCKER_LOGIN_REGISTRY" ]; then

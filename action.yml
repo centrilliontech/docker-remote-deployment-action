@@ -5,6 +5,9 @@ inputs:
   remote_docker_host:
     description: Remote Docker host ie (user@host)
     required: true
+  remote_docker_context:
+    description: Remote Docker context. Default is staging
+    required: false
   ssh_public_key:
     description: Remote Docker SSH public key
     required: true
@@ -32,7 +35,7 @@ inputs:
 
 runs:
   using: docker
-  image: docker://taptap21/docker-remote-deployment-action:v1.1
+  image: docker://centrilliontech/docker-remote-deployment-action:v1.2
 
 
 branding:
